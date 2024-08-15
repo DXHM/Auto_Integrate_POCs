@@ -36,7 +36,10 @@ jobs:
       run: python 5-get_pocname.py
     - name: 6 Delete Nuclei
       run: rm -rf nuclei
-      
+    - name: 7 Update README REPO CHART
+      run: |
+        pip install pandas
+        python update-readme.py
     - name: Commit and Push changes
       run: |
         echo $(date +'%Y%m%d') > date.txt
