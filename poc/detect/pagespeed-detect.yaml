@@ -5,12 +5,11 @@ info:
   author: geeknik
   severity: info
   metadata:
-    max-request: 1
-    verified: true
+    verified: "true"
     shodan-query: "X-Mod-Pagespeed:"
   tags: tech,pagespeed
 
-http:
+requests:
   - method: GET
     path:
       - "{{BaseURL}}"

