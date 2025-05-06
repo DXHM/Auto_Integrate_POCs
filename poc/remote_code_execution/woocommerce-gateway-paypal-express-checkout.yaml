@@ -13,6 +13,7 @@ info:
 
 requests:
   - method: GET
+
     path:
       - "{{BaseURL}}/wp-content/plugins/woocommerce-gateway-paypal-express-checkout/readme.txt"
 
