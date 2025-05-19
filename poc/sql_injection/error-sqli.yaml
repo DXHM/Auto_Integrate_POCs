@@ -1,11 +1,13 @@
 id: error-sqli
 info:
   name: Blind SQL Injection time based detection of sql backend
-  author: oscuridad1010
-  severity: High
-  tags: sql0
+  author: oscuridad1010,leadlife
+  severity: high
+  metadata:
+    validate: true
+  tags: dast,sqli,error
 
-requests:
+http:
   - method: GET
     path: 
       - "{{BaseURL}}"
@@ -19,6 +21,17 @@ requests:
         - "/') OR 1 = 1 -- ];"
         - "%E2%84%A2%22"
         - "%E2%84%A2%27"
+        - "\" "
+        - ") "
+        - ")) "
+        - "))) "
+        - "') "
+        - "')) "
+        - "'))) "
+        - "\") "
+        - "\")) "
+        - "\"))) "
+        - "%'"
 
     stop-at-first-match: true
     fuzzing:
@@ -505,4 +518,3 @@ requests:
           - "org\\.hibernate\\.exception\\.SQLGrammarException"
           - "mismatched input '<EOF>'"
           - '<EOF>'
-
