@@ -3,7 +3,7 @@ id: minio-default-login
 info:
   name: Minio Default Login
   author: pikpikcu
-  severity: medium
+  severity: high
   description: Minio default admin credentials were discovered.
   reference:
     - https://docs.min.io/docs/minio-quickstart-guide.html#
@@ -13,7 +13,7 @@ info:
     cwe-id: CWE-522
   tags: default-login,minio
 
-requests:
+http:
   - raw:
       - |
         POST /minio/webrpc HTTP/1.1
