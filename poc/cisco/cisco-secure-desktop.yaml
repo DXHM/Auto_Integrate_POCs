@@ -7,12 +7,15 @@ info:
   tags: cisco,panel
 
 requests:
-  - method: GET
-    path:
-      - "{{BaseURL}}/CACHE/sdesktop/install/start.htm"
+  - payloads:
+      Subdomains: /home/mahmoud/Wordlist/AllSubdomains.txt
+    attack: sniper
+    threads: 100
 
-    redirects: true
-    max-redirects: 2
+    raw:
+      - |
+        GET /CACHE/sdesktop/install/start.htm HTTP/1.1
+        Host: {{Subdomains}}
     matchers-condition: and
     matchers:
       - type: word

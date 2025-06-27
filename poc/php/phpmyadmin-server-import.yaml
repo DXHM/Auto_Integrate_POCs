@@ -7,7 +7,7 @@ info:
   description: Finds Unauthenticated PhpMyAdmin Server Import Pages.
   tags: phpmyadmin,misconfig
 
-http:
+requests:
   - method: GET
     path:
       - "{{BaseURL}}/pma/server_import.php"
