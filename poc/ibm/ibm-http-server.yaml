@@ -4,23 +4,16 @@ info:
   name: Default IBM HTTP Server
   author: dhiyaneshDK,pussycat0x
   severity: info
-  reference: https://www.shodan.io/search?query=http.title%3A%22IBM-HTTP-Server%22
+  metadata:
+    max-request: 1
+    shodan-query: http.title:"IBM-HTTP-Server"
   tags: tech,ibm
 
-requests:
-  - payloads:
-      Subdomains: /home/mahmoud/Wordlist/AllSubdomains.txt
-    attack: sniper
-    threads: 100
+http:
+  - method: GET
+    path:
+      - '{{BaseURL}}'
 
-    raw:
-      - |
-        GET / HTTP/1.1
-        Host: {{Subdomains}}
-        User-Agent: Mozilla/5.0 (Windows NT 10.0; rv:68.0) Gecko/20100101 Firefox/68.0
-        Accept-Encoding: gzip, deflate
-        Accept: */*
-        
     matchers-condition: and
     matchers:
       - type: word
@@ -36,3 +29,5 @@ requests:
         part: body
         regex:
           - "IBM HTTP Server ([0-9.]+)"
+
+# digest: 490a0046304402206e7b93e6a0825caae64cc217d69555968c6a3c2f32b6ce510d8ec2a5176d7a24022023980a3da37a7b24368f2d66d5744390c5d0156788e4025b626e2972a9032f38:922c64590222798bb761d5b6d8e72950
