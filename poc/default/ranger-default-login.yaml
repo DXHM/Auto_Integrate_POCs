@@ -12,7 +12,6 @@ info:
     cvss-score: 8.3
     cwe-id: CWE-522
   metadata:
-    max-request: 1
     shodan-query: http.title:"Ranger - Sign In"
   tags: apache,ranger,default-login
 
@@ -45,4 +44,4 @@ http:
         status:
           - 200
 
-# digest: 490a0046304402203bf53c048783b3bfa9ae3b589a837d7490de17871f806fdd517ec3f32b79d9b60220319afc2bd265b8457db14da8706c7852f329078070f5b51a82132229b4b31462:922c64590222798bb761d5b6d8e72950
+# Enhanced by md on 2023/01/06
