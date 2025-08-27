@@ -1,21 +1,8 @@
-id: docker-compose-yml
+version: '3'
 
-info:
-  name: Docker Compose Check
-  author: SirBugs
-  severity: Critical
-  description: Checks for common Docker Compose configuration keys.
-
-requests:
-  - method: GET
-    path:
-      - "{{BaseURL}}/docker-compose.yml"
-
-    matchers:
-      - type: word
-        words:
-          - "local composer cache"
-          - "MYSQL_DATABASE"
-          - "MYSQL_ROOT_PASSWORD"
-          - "# Mount source-code"
-        part: body
+services:
+  app:
+    build: .
+    image: cve-2022-22965
+    ports:
+      - 8080:8080

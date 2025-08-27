@@ -1,5 +1,4 @@
 id: sap-web-dispatcher-admin-portal
-
 info:
   name: SAP Web Dispatcher admin portal detection
   author: randomstr1ng
@@ -8,37 +7,31 @@ info:
   tags: sap,webserver,proxy
 
 requests:
-  - payloads:
-      Subdomains: /home/mahmoud/Wordlist/AllSubdomains.txt
-    attack: sniper
-    threads: 100
+  - method: GET
+    redirects: true
+    max-redirects: 2
 
-    raw:
-      - |
-        GET /sap/wdisp/admin/public/default.html HTTP/1.1
-        Host: {{Subdomains}}
-        User-Agent: Mozilla/5.0 (Windows NT 10.0; rv:68.0) Gecko/20100101 Firefox/68.0
-        Accept-Encoding: gzip, deflate
-        Accept: */*
-        
+    path:
+      - "{{BaseURL}}/sap/wdisp/admin/public/default.html"
+
     matchers-condition: and
     matchers:
       - type: word
         part: header
-        condition: or
+        conditions: or
         words:
           - "Basic realm=\"WEB ADMIN\""
           - "SAP NetWeaver Application Server"
-
+          
       - type: status
-        condition: or
+        conditions: or
         status:
           - 401
           - 200
-
+          
       - type: word
         part: body
-        condition: or
+        conditions: or
         words:
           - "SAP Web Dispatcher"
           - "<title>Administration</title>"
