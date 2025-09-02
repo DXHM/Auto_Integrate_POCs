@@ -1,7 +1,7 @@
 id: github-api-csp-bypass
 
 info:
-  name: Content-Security-Policy Bypass via GitHub API
+  name: Content-Security-Policy Bypass - GitHub API
   author: renniepak,DhiyaneshDK
   severity: medium
   reference:
@@ -9,6 +9,22 @@ info:
   metadata:
     verified: true
   tags: xss,csp-bypass,github-api
+
+flow: http(1) && headless(1)
+
+http:
+  - method: GET
+    path:
+      - "{{BaseURL}}"
+
+    matchers:
+      - type: word
+        part: header
+        words:
+          - "Content-Security-Policy"
+          - "github.com"
+        condition: and
+        internal: true
 
 headless:
   - steps:
@@ -36,4 +52,4 @@ headless:
       - type: dsl
         dsl:
           - "github_api_csp_xss == true"
-# digest: 490a004630440220723c7601582efc25bba1c1241dbe5531d98490f6f7b4bec86a24422f1b5e86f102202585512efdd8b2bb24287330baa9c09b649a41ae8a70f36817cef2ee8cc178ca:922c64590222798bb761d5b6d8e72950
+# digest: 4a0a00473045022100a4fa899ea8f67f8efdded78911d4d564e356af3f5fd38f016639e29643fc38680220219e632ebbfc09c166d1e0e3133a4e9ec8cdaed01132037a6ab2557972121c36:922c64590222798bb761d5b6d8e72950
