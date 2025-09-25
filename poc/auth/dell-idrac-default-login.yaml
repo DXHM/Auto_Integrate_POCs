@@ -3,7 +3,7 @@ info:
   name: Dell iDRAC6/7/8 Default login
   author: kophjager007
   severity: high
-  tags: dell,idrac,default-login
+  tags: dell,idrac,dlogin
 
 requests:
   - method: POST

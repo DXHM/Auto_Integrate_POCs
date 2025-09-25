@@ -14,7 +14,7 @@ info:
     shodan-query: "/wd/hub"
   tags: selenium,misconfiguration,rce,chromium
 
-http:
+requests:
   - method: GET
     path:
       - "{{BaseURL}}/wd/hub"

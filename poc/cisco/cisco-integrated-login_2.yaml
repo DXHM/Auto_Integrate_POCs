@@ -1,13 +1,21 @@
 id: cisco-integrated-login
 
 info:
-  name: Cisco Integrated Management Controller Login
+  name: Cisco Integrated Management Controller Login Panel - Detect
   author: dhiyaneshDK
   severity: info
-  reference: https://www.exploit-db.com/ghdb/3859
-  tags: cisco
+  description: Cisco Integrated Management Controller login panel was detected.
+  reference:
+    - https://www.exploit-db.com/ghdb/3859
+  classification:
+    cvss-metrics: CVSS:3.0/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:N
+    cvss-score: 0.0
+    cwe-id: CWE-200
+  tags: panel,cisco,edb
+  metadata:
+    max-request: 1
 
-requests:
+http:
   - method: GET
     path:
       - '{{BaseURL}}/login.html'
@@ -20,3 +28,5 @@ requests:
       - type: status
         status:
           - 200
+
+# Enhanced by md on 2022/11/09

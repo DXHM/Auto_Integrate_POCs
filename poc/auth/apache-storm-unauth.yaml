@@ -4,8 +4,11 @@ info:
   name: Apache Storm Unauth
   author: pikpikcu
   severity: medium
-  reference: https://storm.apache.org/releases/current/STORM-UI-REST-API.html
+  reference:
+    - https://storm.apache.org/releases/current/STORM-UI-REST-API.html
   tags: apache,unauth,misconfig
+  metadata:
+    max-request: 1
 
 http:
   - method: GET

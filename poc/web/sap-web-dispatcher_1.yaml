@@ -6,10 +6,8 @@ info:
   severity: info
   description: Detection of SAP Web Dispatcher service
   tags: sap,webserver,proxy,tech
-  metadata:
-    max-request: 1
 
-http:
+requests:
   - method: GET
     host-redirects: true
     max-redirects: 2

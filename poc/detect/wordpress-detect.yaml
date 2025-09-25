@@ -2,15 +2,11 @@ id: wordpress-detect
 
 info:
   name: WordPress Detect
-  author: pdteam,daffainfo,ricardomaia,topscoder,AdamCrosser
+  author: pdteam,daffainfo,ricardomaia,topscoder
   severity: info
   metadata:
     verified: true
-    max-request: 4
-    vendor: wordpress
-    product: wordpress
     shodan-query: http.component:"WordPress"
-    category: cms
   tags: tech,wordpress,cms,wp
 
 http:
@@ -24,7 +20,6 @@ http:
     redirects: true
     max-redirects: 2
     stop-at-first-match: true
-
     matchers-condition: and
     matchers:
       - type: regex
@@ -37,7 +32,6 @@ http:
           - '<link[^>]+s\d+\.wp\.com'
           - '<!-- This site is optimized with the Yoast (?:WordPress )?SEO plugin v([\d.]+) -'
           - '<!--[^>]+WP-Super-Cache'
-        condition: or
 
       - type: status
         status:
@@ -62,4 +56,4 @@ http:
         regex:
           - 'install\.min\.css\?ver=((\d+\.?)+)\b'
 
-# digest: 4a0a00473045022063a1eb3686edc8dfada91893ca54db0bb002e131cca2a373d56b39c69e46b5440221009004f9bb9c3168e5bdacea0aed03100ce640ecaa2afb4bb3b64a3e545ef1fbcb:922c64590222798bb761d5b6d8e72950
+# Enhanced

@@ -4,10 +4,11 @@ info:
   name: Mongo Express Unauthenticated
   author: dhiyaneshDK,b0rn2r00t
   severity: high
-  reference: https://www.exploit-db.com/ghdb/5684
+  reference:
+    - https://www.exploit-db.com/ghdb/5684
   tags: mongo,unauth
 
-http:
+requests:
   - method: GET
     path:
       - '{{BaseURL}}'

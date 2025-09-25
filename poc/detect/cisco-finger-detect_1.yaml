@@ -10,7 +10,7 @@ info:
     max-request: 2
     verified: true
     shodan-query: product:"Cisco fingerd"
-  tags: network,finger,detect
+  tags: network,finger
 
 tcp:
   - inputs:
@@ -18,7 +18,7 @@ tcp:
 
     host:
       - "{{Hostname}}"
-    port: 79
+      - "{{Host}}:79"
 
     matchers:
       - type: word

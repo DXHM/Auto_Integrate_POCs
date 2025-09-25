@@ -4,10 +4,13 @@ info:
   name: Wpmudev Dashboard Pub Key
   author: dhiyaneshDk
   severity: medium
-  reference: https://www.exploit-db.com/ghdb/6443
-  tags: wordpress
+  reference:
+    - https://www.exploit-db.com/ghdb/6443
+  tags: wordpress,edb
+  metadata:
+    max-request: 1
 
-requests:
+http:
   - method: GET
     path:
       - '{{BaseURL}}/wp-content/plugins/wpmudev-updates/keys/'

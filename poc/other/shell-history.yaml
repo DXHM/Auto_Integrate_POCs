@@ -7,7 +7,7 @@ info:
   description: Discover history for bash, ksh, sh, and zsh
   tags: config
 
-http:
+requests:
   - method: GET
     redirects: true
     max-redirects: 1
@@ -47,5 +47,5 @@ http:
           - "application/xml"
           - "html>"
           - "text/html"
-        part: all
+        part: response
         negative: true

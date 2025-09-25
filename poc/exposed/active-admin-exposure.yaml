@@ -4,21 +4,26 @@ info:
   name: ActiveAdmin Admin Dasboard Exposure
   author: pdteam
   severity: info
-  tags: panel
+  description: An ActiveAdmin Admin dashboard was discovered.
+  reference:
+    - https://activeadmin.info/
+  classification:
+    cwe-id: CWE-200
+  metadata:
+    max-request: 1
+    vendor: activeadmin
+    product: activeadmin
+  tags: panel,activeadmin
 
-requests:
-  - payloads:
-      Subdomains: /home/mahmoud/Wordlist/AllSubdomains.txt
-    attack: sniper
-    threads: 100
+http:
+  - method: GET
+    path:
+      - '{{BaseURL}}/admin/login'
 
-    raw:
-      - |
-        GET /admin/login HTTP/1.1
-        Host: {{Subdomains}}
     matchers:
       - type: word
         words:
           - "active_admin_content"
           - "active_admin-"
         condition: and
+# digest: 4b0a00483046022100e0ec3e97a4a73fa3d26c1de21582539876b4c9b8db79305892bddee289900bd602210093c0d64fb5b3bf314155743d5155211614a7b50f2ceba7604f0079adedb92524:922c64590222798bb761d5b6d8e72950

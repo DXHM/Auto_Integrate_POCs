@@ -1,4 +1,5 @@
 id: mongodb-ops-manager
+
 info:
   name: MongoDB Ops Manager
   author: dhiyaneshDK
@@ -6,10 +7,12 @@ info:
   metadata:
     shodan-query: http.title:"MongoDB Ops Manager"
   tags: panel,mongodb
+
 requests:
   - method: GET
     path:
       - '{{BaseURL}}/account/login'
+
     matchers-condition: and
     matchers:
       - type: word

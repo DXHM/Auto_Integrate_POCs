@@ -5,8 +5,10 @@ info:
   author: dwisiswant0
   severity: info
   tags: wordpress,wp-plugin,backup
+  metadata:
+    max-request: 1
 
-requests:
+http:
   - method: GET
     path:
       - "{{BaseURL}}/wp-content/uploads/tmm_db_migrate/tmm_db_migrate.zip"

