@@ -1,13 +1,26 @@
 id: jenkins-api-panel
 
 info:
-  name: Jenkins API Instance Detection Template
+  name: Jenkins API Panel - Detect
   author: righettod
   severity: info
-  description: Try to detect the presence of a Jenkins API instance via the API default XML endpoint
+  description: Jenkins API panel was detected.
+  classification:
+    cvss-metrics: CVSS:3.0/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:N
+    cwe-id: CWE-200
+    cpe: cpe:2.3:a:jenkins:jenkins:*:*:*:*:*:*:*:*
+  metadata:
+    max-request: 1
+    vendor: jenkins
+    product: jenkins
+    shodan-query:
+      - cpe:"cpe:2.3:a:jenkins:jenkins"
+      - http.favicon.hash:81586312
+      - product:"jenkins"
+    fofa-query: icon_hash=81586312
   tags: panel,api,jenkins
 
-requests:
+http:
   - method: GET
     path:
       - "{{BaseURL}}/api/xml"
@@ -21,3 +34,4 @@ requests:
       - type: status
         status:
           - 200
+# digest: 490a004630440220541a4529e9095298a5f651f930673ff96a2ffe444ffbff2b4fbe45eebb6f0b560220677435d56cbba63f84958c111279ceb1c185c1d655c43487e547ede92fbe94f7:922c64590222798bb761d5b6d8e72950
