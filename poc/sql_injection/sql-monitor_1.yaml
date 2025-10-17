@@ -6,7 +6,6 @@ info:
   severity: info
   description: SQL Monitor was discovered.
   metadata:
-    max-request: 1
     shodan-query: html:"SQL Monitor"
   classification:
     cvss-metrics: CVSS:3.0/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:N
@@ -14,7 +13,7 @@ info:
     cwe-id: CWE-200
   tags: panel
 
-http:
+requests:
   - method: GET
     path:
       - '{{BaseURL}}/Account/LogIn?returnUrl=%2F&hasAttemptedCookie=True'

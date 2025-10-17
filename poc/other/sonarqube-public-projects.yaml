@@ -2,19 +2,24 @@ id: sonarqube-public-projects
 
 info:
   name: Sonarqube with public projects
-  author: Charles D.
+  author: sickwell
   severity: low
-  reference:
-    - https://next.sonarqube.com/sonarqube/web_api/api/components/suggestions?internal=true
   tags: sonarqube,misconfig
-  metadata:
-    max-request: 1
+  reference: https://next.sonarqube.com/sonarqube/web_api/api/components/suggestions?internal=true
 
-http:
-  - method: GET
-    path:
-      - "{{BaseURL}}/projects?sort=-analysis_date"
+requests:
+  - payloads:
+      Subdomains: /home/mahmoud/Wordlist/AllSubdomains.txt
+    attack: sniper
+    threads: 100
 
+    raw:
+      - |
+        GET /api/components/suggestions?recentlyBrowsed= HTTP/1.1
+        Host: {{Subdomains}}
+        User-Agent: Mozilla/5.0 (Windows NT 10.0; rv:68.0) Gecko/20100101 Firefox/68.0
+        Accept-Encoding: gzip, deflate
+        Accept: */*
     matchers-condition: and
     matchers:
 
@@ -24,6 +29,8 @@ http:
 
       - type: word
         words:
-          - "Filters"
-          - "Realiabiility"
+          - '"results":'
+          - '"items":'
+          - '"more":'
         part: body
+        condition: and

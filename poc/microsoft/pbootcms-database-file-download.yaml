@@ -14,7 +14,7 @@ info:
     cwe-id: CWE-89
   tags: pbootcms,db,exposure,database,sqlite
 
-http:
+requests:
   - method: GET
     path:
       - "{{BaseURL}}/data/pbootcms.db"

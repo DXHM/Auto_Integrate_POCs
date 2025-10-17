@@ -1,25 +1,13 @@
 id: web-config
-
 info:
-  name: Web Configuration File - Detect
-  author: Yash Anand @yashanand155,DhiyaneshDK
+  name: Web Config file
+  author: Yash Anand @yashanand155
   severity: info
-  description: Web configuration file was detected.
-  reference:
-    - https://github.com/imhunterand/ApachSAL/blob/main/assets/exploits.json
-  classification:
-    cvss-metrics: CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:N
-    cvss-score: 0.0
-    cwe-id: CWE-200
-  tags: config,exposure
-  metadata:
-    max-request: 2
 
-http:
+requests:
   - method: GET
     path:
       - '{{BaseURL}}/web.config'
-      - '{{BaseURL}}/../../web.config'
 
     matchers-condition: and
     matchers:
@@ -32,5 +20,3 @@ http:
       - type: status
         status:
           - 200
-
-# Enhanced by md on 2023/02/24

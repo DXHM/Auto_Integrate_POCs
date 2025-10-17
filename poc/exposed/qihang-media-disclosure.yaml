@@ -8,10 +8,16 @@ info:
   reference: https://www.zeroscience.mk/en/vulnerabilities/ZSL-2020-5579.php
   tags: qihang,exposure
 
-http:
-  - method: GET
-    path:
-      - "{{BaseURL}}/xml/User/User.xml"
+requests:
+  - payloads:
+      Subdomains: /home/mahmoud/Wordlist/AllSubdomains.txt
+    attack: sniper
+    threads: 100
+
+    raw:
+      - |
+        GET /xml/User/User.xml HTTP/1.1
+        Host: {{Subdomains}}
 
     matchers:
       - type: word

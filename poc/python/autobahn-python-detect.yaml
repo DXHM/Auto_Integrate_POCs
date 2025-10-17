@@ -4,20 +4,23 @@ info:
   name: Autobahn-Python Webserver Detect
   author: pussycat0x
   severity: info
-  classification:
-    cpe: cpe:2.3:a:crossbar:autobahn:*:*:*:*:*:*:*:*
-  metadata:
-    max-request: 1
-    vendor: crossbar
-    product: autobahn
-    shodan-query: "AutobahnPython"
-  tags: tech,webserver
+  reference: https://www.shodan.io/search?query=%22AutobahnPython%22
+  tags: tech
 
-http:
-  - method: GET
-    path:
-      - '{{BaseURL}}'
+requests:
+  - payloads:
+      Subdomains: /home/mahmoud/Wordlist/AllSubdomains.txt
+    attack: sniper
+    threads: 100
 
+    raw:
+      - |
+        GET / HTTP/1.1
+        Host: {{Subdomains}}
+        User-Agent: Mozilla/5.0 (Windows NT 10.0; rv:68.0) Gecko/20100101 Firefox/68.0
+        Accept-Encoding: gzip, deflate
+        Accept: */*
+        
     matchers-condition: and
     matchers:
       - type: regex
@@ -33,4 +36,3 @@ http:
         part: body
         regex:
           - 'AutobahnPython([ 0-9.]+)'
-# digest: 490a0046304402206ba1e08dfdc067916899a45d96f095912687beae380397928c61b217efb7fdd902206917a007b777b19d332180e75d9029aa11460ccad76abfb98ea808f174da6f03:922c64590222798bb761d5b6d8e72950
