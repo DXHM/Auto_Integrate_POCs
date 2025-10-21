@@ -1,16 +1,17 @@
-id: dir-listing
+id: dir-listing-2
 
 info:
-  name: Directory listing enabled
-  author: _harleo
+  name: Directory Listing
+  author: notnotnotveg
   severity: info
 
 requests:
   - method: GET
     path:
-      - "{{BaseURL}}/"
+      - "{{BaseURL}}/logs/"
+      - "{{BaseURL}}/etc/"
     matchers:
       - type: word
         words:
-          - "Index of /"
-          - "[To Parent Directory]"
+          - "Index of"
+        part: body

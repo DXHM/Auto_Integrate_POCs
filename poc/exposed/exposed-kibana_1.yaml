@@ -4,7 +4,7 @@ info:
   name: Exposed Kibana
   author: Shine
   severity: medium
-  tags: kibana,unauth,misconfig
+  tags: kibana,unauth
   metadata:
     max-request: 2
 
