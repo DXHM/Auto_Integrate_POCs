@@ -26,40 +26,38 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        build: [ linux, linux-gnu, macos, macos_m1,win-msvc, win7-msvc, linux-arm-v7, linux-aarch64 ]
+        build: [linux, macos, macos_m1, win-msvc, linux-arm-v7, linux-aarch64]
         include:
           - build: linux
             os: ubuntu-latest
             rust: stable
             target: x86_64-unknown-linux-musl
-          - build: linux-gnu
-            os: ubuntu-latest
-            rust: stable
-            target: x86_64-pc-windows-gnu
+            file: observer_ward_amd64
           - build: macos
             os: macos-latest
             rust: stable
             target: x86_64-apple-darwin
+            file: observer_ward_darwin
           - build: macos_m1
             os: macos-latest
             rust: stable
             target: aarch64-apple-darwin
+            file: observer_ward_aarch64_darwin
           - build: win-msvc
             os: windows-latest
             rust: stable
             target: i686-pc-windows-msvc
-          - build: win7-msvc
-            os: windows-latest
-            rust: nightly
-            target: x86_64-pc-windows-msvc
+            file: observer_ward.exe
           - build: linux-arm-v7
             os: ubuntu-latest
             rust: stable
             target: armv7-unknown-linux-gnueabihf
+            file: observer_ward_armv7
           - build: linux-aarch64
             os: ubuntu-latest
             rust: stable
             target: aarch64-unknown-linux-gnu
+            file: observer_ward_aarch64
     runs-on: ${{ matrix.os }}
     steps:
       - name: Checkout repository
@@ -87,10 +85,12 @@ jobs:
         shell: bash
         run: |
           choco config set cacheLocation "${{ github.workspace }}\choco-cache"
+          choco install llvm openssl
           export CARGO_PKG_VERSION=`date +'%-Y.%-m.%-d'`
           sed -i -e "s/^version = .*/version = \"`date +'%-Y.%-m.%-d'`\"/" observer_ward/Cargo.toml
           sed -i -e "s/\"observer_ward version\"/\"observer_ward v`date +'%-Y.%-m.%-d'`\"/" observer_ward/src/cli.rs
           echo "CARGO_PKG_VERSION=`date +'%Y.%m.%d'`" >>$GITHUB_ENV
+          echo "OPENSSL_DIR=C:\Program Files\OpenSSL-Win64" >>$GITHUB_ENV
           echo "RUSTFLAGS=-C target-feature=+crt-static" >>$GITHUB_ENV
       - name: Install packages (Macos)
         if: matrix.os == 'macos-latest'
@@ -104,48 +104,18 @@ jobs:
           profile: minimal
           override: true
           target: ${{ matrix.target }}
-      - name: Build stable release binary
-        if: matrix.rust == 'stable'
-        run: |
-          cargo build --target ${{ matrix.target }} --verbose --release --bin observer_ward
-      - name: Build nightly release binary
-        if: matrix.rust == 'nightly'
-        run: |
-          rustup component add rust-src --toolchain nightly-${{ matrix.target }}
-          cargo +nightly build --target ${{ matrix.target }} --verbose --release --bin observer_ward
+      - name: Build release binary
+        run: cargo build --target ${{ matrix.target }} --verbose --release
       - name: Build archive
         shell: bash
         run: |
-          staging="${{ env.BIN_NAME }}_${{ needs.create-release.outputs.release_version }}_${{ matrix.target }}"
-          mkdir -p "$staging"
-          cp {README.md,LICENSE} "$staging/"
-          if [ "${{ matrix.os }}" = "windows-latest" ] || [[ "${{ matrix.target }}" == *"windows"* ]]; then
+          if [ "${{ matrix.os }}" = "windows-latest" ]; then
             bin_file="target/${{ matrix.target }}/release/${{ env.BIN_NAME }}.exe"
-            cp "$bin_file" "$staging/"
-            cd "$staging"
-            7z a "../$staging.zip" .
-            echo "ASSET=$staging.zip" >> $GITHUB_ENV
             echo "BIN_FILE=$bin_file" >> $GITHUB_ENV
           else
             bin_file="target/${{ matrix.target }}/release/${{ env.BIN_NAME }}"
-            cp "$bin_file" "$staging/"
-            echo "ASSET=$staging.tar.gz" >> $GITHUB_ENV
             echo "BIN_FILE=$bin_file" >> $GITHUB_ENV
-            tar czf "$staging.tar.gz" -C "$staging" ${{ matrix.target }} README.md LICENSE
           fi
-      - name: Upload release archive
-        uses: softprops/action-gh-release@v2
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          files: ${{ env.ASSET }}
-          tag_name: defaultv4
-      - name: Upload binary to release
-        uses: softprops/action-gh-release@v2
-        with:
-          tag_name: defaultv4
-          files: |
-            ${{ env.BIN_FILE }}
       - name: Install Cargo deb (Ubuntu)
         if: matrix.os == 'ubuntu-latest'
         run: |
@@ -153,7 +123,18 @@ jobs:
           cargo deb --target ${{ matrix.target }} --output target/${{ matrix.target }}/debian/observer-ward_${{ matrix.target }}.deb
       - name: Upload deb to release
         if: matrix.os == 'ubuntu-latest'
-        uses: softprops/action-gh-release@v2
+        uses: svenstaro/upload-release-action@v1-release
         with:
-          tag_name: defaultv4
-          files: target/${{ matrix.target }}/debian/observer-ward_${{ matrix.target }}.deb
+          repo_token: ${{ secrets.GITHUB_TOKEN }}
+          file: target/${{ matrix.target }}/debian/observer-ward_${{ matrix.target }}.deb
+          asset_name: observer-ward_${{ matrix.target }}.deb
+          tag: defaultv4
+          overwrite: true
+      - name: Upload binary to release
+        uses: svenstaro/upload-release-action@v1-release
+        with:
+          repo_token: ${{ secrets.GITHUB_TOKEN }}
+          file: ${{ env.BIN_FILE }}
+          asset_name: ${{ matrix.file }}
+          tag: defaultv4
+          overwrite: true
