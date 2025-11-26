@@ -1,7 +1,7 @@
 id: gstatic-recaptcha-csp-bypass
 
 info:
-  name: Content-Security-Policy Bypass via GStatic reCAPTCHA
+  name: Content-Security-Policy Bypass - GStatic reCAPTCHA
   author: renniepak,DhiyaneshDK
   severity: medium
   reference:
@@ -9,6 +9,22 @@ info:
   metadata:
     verified: true
   tags: xss,csp-bypass,gstatic-recaptcha
+
+flow: http(1) && headless(1)
+
+http:
+  - method: GET
+    path:
+      - "{{BaseURL}}"
+
+    matchers:
+      - type: word
+        part: header
+        words:
+          - "Content-Security-Policy"
+          - "gstatic.com"
+        condition: and
+        internal: true
 
 headless:
   - steps:
@@ -36,4 +52,4 @@ headless:
       - type: dsl
         dsl:
           - "gstatic_recaptcha_csp_xss == true"
-# digest: 4b0a004830460221009645afcf5b2586e0dbf9e606d5f15a9ef5fd0bd331a8ab2665232ad65a2e34e9022100fbdbc80c9339e658e25594c7629db1f85a5943853caf05753a399796e01a0cf2:922c64590222798bb761d5b6d8e72950
+# digest: 490a00463044022029a4c2745ab6e04fed88ba020d97d820d1aecb07f3bfbfd4a3cbfc1d123fb01b0220303f8772b9da84b30ba11401d92cbdfe60406411921243fe24631cfbb5df8fd2:922c64590222798bb761d5b6d8e72950

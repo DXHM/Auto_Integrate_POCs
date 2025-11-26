@@ -3,7 +3,7 @@ id: lfi-keyed
 info:
   name: Key LFI Detection
   author: pwnhxl
-  severity: unknnown
+  severity: unknown
   reference:
     - https://owasp.org/www-community/attacks/Unicode_Encoding
   tags: dast,pathtraversal,lfi
@@ -18,10 +18,11 @@ variables:
   fuzz_bypass_replace_windows: '..\..\..\..\..\..\..\..\..\..\..\..\..\..\..\'
   fuzz_bypass_waf_regx: "./.././.././.././.././.././.././.././.././.././.././.././.././.././.././../"
 
-requests:
-  - method: GET
-    path:
-      - "{{BaseURL}}"
+http:
+  - pre-condition:
+      - type: dsl
+        dsl:
+          - 'method == "GET"'
 
     payloads:
       pathtraversal:
