@@ -6,7 +6,7 @@ info:
   severity: info
   tags: apache,tomcat
 
-http:
+requests:
   - method: GET
     path:
       - "{{BaseURL}}/examples/servlets/index.html"

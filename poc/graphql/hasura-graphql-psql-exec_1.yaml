@@ -11,11 +11,9 @@ info:
     cvss-metrics: CVSS:3.0/AV:N/AC:L/PR:N/UI:N/S:C/C:H/I:H/A:H
     cvss-score: 10.0
     cwe-id: CWE-77
-  tags: graphql,edb,hasura,rce
-  metadata:
-    max-request: 1
+  tags: hasura,rce,graphql
 
-http:
+requests:
   - raw:
       - |
         POST /v2/query HTTP/1.1
