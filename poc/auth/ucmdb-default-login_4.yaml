@@ -4,15 +4,16 @@ info:
   name: Micro Focus Universal CMDB Default Login
   author: dwisiswant0
   severity: high
-  description: Micro Focus Universal CMDB default login credentials were discovered for diagnostics/admin. Note there is potential for this to be chained together with other vulnerabilities as with CVE-2020-11853
-    and CVE-2020-11854.
+  description: Micro Focus Universal CMDB default login credentials were discovered for diagnostics/admin. Note there is potential for this to be chained together with other vulnerabilities as with CVE-2020-11853 and CVE-2020-11854.
   reference:
     - https://packetstormsecurity.com/files/161182/Micro-Focus-UCMDB-Remote-Code-Execution.htm
   classification:
     cwe-id: CWE-798
-  tags: ucmdb,default-login,packetstorm
+  metadata:
+    max-request: 1
+  tags: ucmdb,default-login,packetstorm,vuln
 
-requests:
+http:
   - raw:
       - |
         POST /ucmdb-ui/cms/loginRequest.do; HTTP/1.1
@@ -37,5 +38,4 @@ requests:
         part: header
         words:
           - "LWSSO_COOKIE_KEY"
-
-# Enhanced by mp on 2022/03/07
+# digest: 4b0a00483046022100f31a44549ef064f2083dda42efaca38a1f2929866f34e9aee22961646d95415302210094abee86820fabeb6c6d9e8d173a64e11d92b118274e939480086be3ceee1709:922c64590222798bb761d5b6d8e72950

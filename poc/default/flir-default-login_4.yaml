@@ -9,9 +9,11 @@ info:
     - https://securitycamcenter.com/flir-default-password/
   classification:
     cwe-id: CWE-798
-  tags: default-login,flir,camera,iot
+  metadata:
+    max-request: 1
+  tags: default-login,flir,camera,iot,vuln
 
-requests:
+http:
   - raw:
       - |
         POST /login/dologin HTTP/1.1
@@ -30,21 +32,18 @@ requests:
 
     matchers-condition: and
     matchers:
-
       - type: word
         words:
           - '"success"'
 
       - type: dsl
         dsl:
-          - contains(tolower(all_headers), 'text/html')
-          - contains(tolower(all_headers), 'phpsessid')
-          - contains(tolower(all_headers), 'showcameraid')
-
+          - contains(tolower(header), 'text/html')
+          - contains(tolower(header), 'phpsessid')
+          - contains(tolower(header), 'showcameraid')
         condition: and
 
       - type: status
         status:
           - 200
-
-# Enhanced by mp on 2022/03/03
+# digest: 4b0a00483046022100afddbcb27d64395a954c03b95547f6b80519581633181cee9faf68d2dab5292002210085a4aef1add8c341e6f48327fc140dd7eff66496b79f99490136fbadd17c36e6:922c64590222798bb761d5b6d8e72950

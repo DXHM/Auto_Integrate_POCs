@@ -9,10 +9,14 @@ info:
     - https://attackerkb.com/assessments/9101a539-4c6e-4638-a2ec-12080b7e3b50
     - https://blog.sonarsource.com/gocd-pre-auth-pipeline-takeover
     - https://twitter.com/wvuuuuuuuuuuuuu/status/1456316586831323140
+  classification:
+    cpe: cpe:2.3:a:thoughtworks:gocd:*:*:*:*:*:*:*:*
   metadata:
     max-request: 1
-    shodan-query: http.title:"Create a pipeline - Go",html:"GoCD Version"
-  tags: go,gocd,exposure,misconfig
+    vendor: thoughtworks
+    product: gocd
+    shodan-query: http.title:"Create a pipeline - Go" html:"GoCD Version"
+  tags: go,gocd,exposure,misconfig,vuln
 
 http:
   - method: GET
@@ -38,4 +42,4 @@ http:
       - type: regex
         regex:
           - "([a-z0-9]){32}"
-# digest: 490a0046304402205ac41f33e34d969b020ee864720a58cdc98c17066213906ca0a6703759bee6260220648ad5ffaa33adc1a318395cd2da424417fb64cf1ed962a0bb6da6cf73514c09:922c64590222798bb761d5b6d8e72950
+# digest: 490a004630440220430ebc1e9681c84a0dd0b760d23703a90ded3004b1c673146994f6933fef52ae022075163d88466410da0cd1837307f1cefec5ba7879401107ffa809f5846ae59569:922c64590222798bb761d5b6d8e72950

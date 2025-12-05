@@ -12,7 +12,7 @@ info:
     cwe-id: CWE-200
   metadata:
     max-request: 2
-  tags: panel,zoho,manageengine
+  tags: panel,zoho,manageengine,discovery
 
 http:
   - method: GET
@@ -35,4 +35,4 @@ http:
           - "status_code==200"
           - "('192917117' == mmh3(base64_py(body)))"
         condition: and
-# digest: 4a0a00473045022100966e1177e4e80541a90526d3f5948c368cea2e1b8da795900d26b5dce3648d890220319efe4b97e827ef579b56fe6dd72f6c21c69e9295f395df35fdeb430a5f39f7:922c64590222798bb761d5b6d8e72950
+# digest: 490a004630440220055a585e070947568891ac95881017d03008c54ded8614d62d2adf688d8ee92b0220194518c507ccbd4aee0b13b6bafd5bb13610b04d02cc59ea1ba38e1027628b11:922c64590222798bb761d5b6d8e72950

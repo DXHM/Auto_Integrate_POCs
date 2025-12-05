@@ -15,7 +15,7 @@ info:
   metadata:
     max-request: 1
     shodan-query: product:"BGP"
-  tags: network,bgp
+  tags: network,bgp,detect,detection,tcp,discovery
 
 tcp:
   - inputs:
@@ -40,4 +40,4 @@ tcp:
         encoding: hex
         words:
           - "ffffffffffffffffffffffffffffffff"
-# digest: 4a0a00473045022064a8594466166035eca94cd92bd34e820089dfe2324e3bca979453379d46a1df022100d76382882480247d802b84eb101e5efd4e2c7f6ecfed4e1ab9264e0246d6c62a:922c64590222798bb761d5b6d8e72950
+# digest: 490a0046304402207533b5d6115c2aac1ae642e8521817269822c12fc9e1c6eed15483110227cc7c0220354a36e75fc17512c8e65ba51b430368f2b365d43ff42c3342d58e1dceaa9aac:922c64590222798bb761d5b6d8e72950

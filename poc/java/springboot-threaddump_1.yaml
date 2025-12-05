@@ -4,15 +4,20 @@ info:
   name: Detect Springboot Thread Dump page
   author: philippedelteil
   severity: low
-  description: The threaddump endpoint provides a thread dump from the application’s JVM.
-  reference: https://docs.spring.io/spring-boot/docs/2.4.11-SNAPSHOT/actuator-api/htmlsingle/#threaddump
-  tags: springboot
+  description: The threaddump endpoint provides a thread dump from the application's JVM.
+  reference:
+    - https://docs.spring.io/spring-boot/docs/2.4.11-SNAPSHOT/actuator-api/htmlsingle/#threaddump
+  metadata:
+    max-request: 2
+  tags: springboot,misconfig,vuln
 
-requests:
+http:
   - method: GET
     path:
       - "{{BaseURL}}/threaddump"
       - "{{BaseURL}}/actuator/threaddump"
+
+    stop-at-first-match: true
 
     matchers-condition: and
     matchers:
@@ -23,15 +28,16 @@ requests:
           - '"threadName":'
         condition: and
 
-      - type: status
-        status:
-          - 200
-
       - type: word
+        part: header
         words:
           - "application/json"
           - "application/vnd.spring-boot.actuator"
           - "application/vnd.spring-boot.actuator.v2+json"
           - "application/vnd.spring-boot.actuator.v1+json"
         condition: or
-        part: header
+
+      - type: status
+        status:
+          - 200
+# digest: 4b0a00483046022100d8424d177e59c14f3e0843d7f5bead3e67a9c097a8c6a0f34b0e154f0d166032022100db820cdac97c94d6f288539eb5ffaebf1fc42eacb29adba72fc5af15fc677b1a:922c64590222798bb761d5b6d8e72950

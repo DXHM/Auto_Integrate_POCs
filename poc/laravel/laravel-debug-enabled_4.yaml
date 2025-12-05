@@ -1,35 +1,30 @@
+id: laravel-debug-enabled
+
 info:
-  id: laravel-debug-enabled
-  name: Laravel Debug Method Enabled
-  author: Fábio Castro
-  description: List of common regular expression patterns to detect Laravel debug method enabled in HTTP response bodies.
-  severity: Medium
-  classification:
-    tags:
-      - debug
-      - laravel
-      - development
+  name: Laravel Debug Enabled
+  author: notsoevilweasel
+  severity: medium
+  description: |
+    Laravel with APP_DEBUG set to true is prone to show verbose errors.
+  remediation: |
+    Disable Laravel's debug mode by setting APP_DEBUG to false.
+  metadata:
+    max-request: 1
+  tags: debug,laravel,misconfig,vuln
 
-  references:
-    - "Laravel Debugging documentation"
-
-  matcher-condition: or
-
-  requests:
-    method: GET
+http:
+  - method: GET
     path:
-      - "/"
-    description: Attempt to access the main page
-    condition: and
+      - "{{BaseURL}}/_ignition/health-check"
 
-  matchers:
-    - pattern: "(\\\\\\\\)?\\\\['debug'\\\\]\\\\s?=\\\\s?true"
-      type: body
-      description: "Matches Laravel debug mode enabled in request bodies."
-    - pattern: "Whoops! There was an error"
-      type: body
-      description: "Matches Laravel Whoops error message in request bodies."
-      
-  response:
-    - status: 
-      - 200
+    matchers-condition: and
+    matchers:
+      - type: word
+        part: body
+        words:
+          - can_execute_commands
+
+      - type: status
+        status:
+          - 200
+# digest: 4b0a00483046022100f7ad81d93311f60c637be3322a011f6787545c6873ff79b167a74b77aa711fa6022100cb2855da07b55a357f77facccdd7d7dcc143728080dbd3019e9079b0c67c90b5:922c64590222798bb761d5b6d8e72950

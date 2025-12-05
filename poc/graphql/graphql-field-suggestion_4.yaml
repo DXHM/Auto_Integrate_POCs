@@ -15,7 +15,7 @@ info:
     - https://graphql.security
   metadata:
     max-request: 2
-  tags: graphql,misconfig
+  tags: graphql,misconfig,vuln
 
 http:
   - raw:
@@ -45,5 +45,4 @@ http:
         part: header
         words:
           - "application/json"
-
-# digest: 4a0a00473045022100f5316ae1a3de8e167424760b404e4f463b495138d3760a6b2fd3e506430e98ff02204480e1f6186cd2fdc82c1ad5cb8a8cadf5174b9a4023dbe8ddf0c2eeace340d3:922c64590222798bb761d5b6d8e72950
+# digest: 4b0a00483046022100eb6e215492ca6cc73c6cb585e4f9c22752ea37953fa24b455c02ba13e62f4c55022100f4e654c68c5eea10407eede547e5e2f3b178a98ced4f110d12a850e602914a5e:922c64590222798bb761d5b6d8e72950

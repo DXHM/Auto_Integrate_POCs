@@ -11,7 +11,7 @@ info:
     - https://github.com/kgretzky/evilginx2
   metadata:
     max-request: 1
-  tags: evilginx2,c2,phishing,jarm
+  tags: jarm,network,c2,ir,osint,cti,evilginx2,phishing,tcp,vuln
 tcp:
   - inputs:
       - data: 2E
@@ -22,5 +22,4 @@ tcp:
       - type: dsl
         dsl:
           - "jarm(Hostname) == '20d14d20d21d20d20c20d14d20d20daddf8a68a1444c74b6dbe09910a511e6'"
-
-# digest: 4a0a00473045022100e621ce119e93b1614d7abd986a16391d8febf0b19cd36f5c5642dad1f4705c2302201197b794f95082cf1ca5c24013961f7d6f4240ac804ac57f400ff9fd468553e1:922c64590222798bb761d5b6d8e72950
+# digest: 490a004630440220772616b4c206eccab0d9d65bf8c3933fcbe9bd7715dd890a482f611ae041a84102206fe6795c1764a7b02c8c2d44278f2c1551cd23fc9adfac865d208417302d808a:922c64590222798bb761d5b6d8e72950

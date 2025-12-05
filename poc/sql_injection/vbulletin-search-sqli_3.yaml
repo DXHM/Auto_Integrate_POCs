@@ -10,11 +10,15 @@ info:
   reference:
     - https://www.exploit-db.com/exploits/17314
     - https://web.archive.org/web/20181129123620/https://j0hnx3r.org/vbulletin-4-x-sql-injection-vulnerability/
+  classification:
+    cpe: cpe:2.3:a:vbulletin:vbulletin:*:*:*:*:*:*:*:*
   metadata:
     verified: true
     max-request: 1
+    vendor: vbulletin
+    product: vbulletin
     shodan-query: http.component:"vBulletin"
-  tags: vbulletin,sqli
+  tags: vbulletin,sqli,vuln
 
 http:
   - raw:
@@ -25,6 +29,8 @@ http:
 
         contenttypeid=7&do=process&humanverify=1&cat[]=-1%27
 
+    host-redirects: true
+    max-redirects: 3
     matchers-condition: and
     matchers:
       - type: word
@@ -39,4 +45,4 @@ http:
           - 200
           - 503
         condition: or
-# digest: 4b0a0048304602210084dd0d783afb78cfa19cc10f84030918f06fe86708e84bc6d5bfdf4ced8fe10c02210094a54b19eb0bb0c4c16160977a3be435769921093900186566c64fa372caafdb:922c64590222798bb761d5b6d8e72950
+# digest: 4a0a00473045022074303121ed83ffe45c64bf8087374aa3e11a47f74e6198873ff9af48fc1ba20d0221009c17569f48b8cdef89f9faabf1a9bf56eb990edf3fe779131176e282bccb94fd:922c64590222798bb761d5b6d8e72950

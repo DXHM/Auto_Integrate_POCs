@@ -12,9 +12,11 @@ info:
     cvss-metrics: CVSS:3.0/AV:N/AC:L/PR:N/UI:N/S:C/C:L/I:L/A:L
     cvss-score: 8.3
     cwe-id: CWE-522
-  tags: rackn,digitalrebar,default-login
+  metadata:
+    max-request: 1
+  tags: rackn,digitalrebar,default-login,vuln
 
-requests:
+http:
   - raw:
       - |
         GET /api/v3/users HTTP/1.1
@@ -26,8 +28,8 @@ requests:
         - rocketskates
       password:
         - r0cketsk8ts
-
     attack: pitchfork
+
     matchers-condition: and
     matchers:
       - type: status
@@ -45,5 +47,4 @@ requests:
           - 'Name'
           - 'Secret'
         condition: and
-
-# Enhanced by mp on 2022/03/22
+# digest: 4a0a0047304502210098edc0b533836fed6ceb4e45ecdca8b24be9dd76a847726b24596fef492d513d022042dd6b846a392ac70930a0b8830489313abe8a292a64e378f97394478e525474:922c64590222798bb761d5b6d8e72950

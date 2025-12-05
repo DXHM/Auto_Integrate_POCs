@@ -6,7 +6,7 @@ info:
   severity: info
   metadata:
     max-request: 1
-  tags: google,tech,bucket
+  tags: google,tech,bucket,discovery
 
 http:
   - method: GET
@@ -24,5 +24,4 @@ http:
           - contains(tolower(header), 'x-goog-stored-content-length')
           - contains(tolower(header), 'x-guploader-uploadid')
         condition: or
-
-# digest: 490a00463044022040b887c27647417769c6df019ac3faa6b310ef9ced427bead7e3ac732206f32702204b56b321bc16d2c9b9aefc9c0452c93f202ea0efb085f532ee92ce0ab52588ea:922c64590222798bb761d5b6d8e72950
+# digest: 4b0a00483046022100d5b96eaac37f65bc99e09275bbe1d98b77b43241e4f8c0b566ee0360c17ee149022100917d2d0c81563e1d80a060fd4bbaff726c277b827907a77a1bb0b0481a74a9b8:922c64590222798bb761d5b6d8e72950
