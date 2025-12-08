@@ -1,14 +1,13 @@
-id: public-tomcat-instance
+id: public-tomcat-detect
 
 info:
   name: tomcat manager disclosure
-  author: Ahmed Sherif
+  author: thanhnx
   severity: info
 
-http:
+requests:
   - method: GET
     path:
-      - '{{BaseURL}}/manager/html'
       - '{{BaseURL}}:8080/manager/html'
     matchers-condition: and
     matchers:
